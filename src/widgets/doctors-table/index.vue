@@ -1,11 +1,18 @@
 <template>
   <div :class="styles.container">
-    <DataTable v-if="!isLoading" has-actions :columns="columns" :data="data" />
+    <DataTable
+      v-if="!isLoading"
+      has-actions
+      :columns="columns"
+      :data="data"
+      @remove="onRemove"
+      @edit="onEdit"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDepartmentStore } from "entities/departments";
 import { useDoctorsStore } from "entities/doctors";
@@ -17,7 +24,7 @@ const { doctors } = storeToRefs(useDoctorsStore());
 const { departments } = storeToRefs(useDepartmentStore());
 
 const { getDepartments, getNameById } = useDepartmentStore();
-const { getDoctors } = useDoctorsStore();
+const { getDoctors, setSelectedDoctor, removeDoctor } = useDoctorsStore();
 
 const columns = ref<TableColumn[]>([
   {
@@ -39,7 +46,16 @@ const columns = ref<TableColumn[]>([
 ]);
 
 const isLoading = ref<boolean>(true);
-const data = ref<TableItem[]>([]);
+const data = computed((): TableItem[] => {
+  if (!departments.value.length || !doctors.value.length) return [];
+
+  return doctors.value.map((doctor) => ({
+    ...doctor,
+    title: doctor.name,
+    department: getNameById(doctor.departmentId),
+    position: getPosition(doctor.isHead),
+  }));
+});
 
 const fetchData = async (): Promise<void> => {
   isLoading.value = true;
@@ -47,8 +63,6 @@ const fetchData = async (): Promise<void> => {
   try {
     await getDepartments();
     await getDoctors();
-
-    prepareData();
   } catch (error) {
     console.error(error);
     return;
@@ -60,18 +74,11 @@ const fetchData = async (): Promise<void> => {
 const getPosition = (isHead: boolean): string =>
   isHead ? "Заведующий" : "Специалист";
 
-const prepareData = (): void => {
-  if (!doctors.value.length || !departments.value.length) {
-    data.value = [];
-    return;
-  }
-
-  data.value = doctors.value.map((doctor) => ({
-    ...doctor,
-    title: doctor.name,
-    department: getNameById(doctor.departmentId),
-    position: getPosition(doctor.isHead),
-  }));
+const onRemove = (item: TableItem): void => {
+  removeDoctor(item.id as number);
+};
+const onEdit = (item: TableItem): void => {
+  setSelectedDoctor(item.id as number);
 };
 
 onBeforeMount(async () => {

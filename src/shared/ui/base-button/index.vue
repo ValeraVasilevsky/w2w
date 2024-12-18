@@ -1,5 +1,10 @@
 <template>
-  <button :type="props.type" :disabled="isDisabled" :class="buttonClasses">
+  <button
+    :type="props.type"
+    :disabled="isDisabled"
+    :class="buttonClasses"
+    @click="onClick"
+  >
     <Typography v-if="slots['default']" variant="text-l-2">
       <slot />
     </Typography>
@@ -31,6 +36,9 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
   loading: false,
   disabled: false,
 });
+const emits = defineEmits<{
+  click: [value: Event];
+}>();
 
 const isDisabled = computed((): boolean => props.loading || props.disabled);
 const buttonClasses = computed((): string[] => {
@@ -40,4 +48,8 @@ const buttonClasses = computed((): string[] => {
 
   return classes;
 });
+
+const onClick = (event: Event): void => {
+  emits("click", event);
+};
 </script>

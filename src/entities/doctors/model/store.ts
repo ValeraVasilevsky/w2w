@@ -7,6 +7,7 @@ export const useDoctorsStore = defineStore(
   "doctors",
   (): DoctorsState => {
     const doctors = ref<Doctor[]>([]);
+    const selectedDoctor = ref<Doctor | null>(null);
 
     const getDoctors = async (): Promise<void> => {
       // Чтобы изменять хранилище
@@ -21,9 +22,23 @@ export const useDoctorsStore = defineStore(
       }
     };
 
+    const removeDoctor = (doctorId: number): void => {
+      doctors.value = doctors.value.filter(({ id }) => id !== doctorId);
+    };
+    const editDoctor = (doctorId: number): void => {};
+    const setSelectedDoctor = (doctorId: number): void => {
+      const candidate = doctors.value.find(({ id }) => id === doctorId);
+      if (!candidate) selectedDoctor.value = null;
+      else selectedDoctor.value = candidate;
+    };
+
     return {
       doctors,
       getDoctors,
+      removeDoctor,
+      editDoctor,
+      selectedDoctor,
+      setSelectedDoctor,
     };
   },
   {

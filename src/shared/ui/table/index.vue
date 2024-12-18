@@ -31,13 +31,13 @@
           >
             <slot :name="column.key" :item="item">
               <div v-if="column.key === 'actions'" :class="styles.actions">
-                <BaseButton>
+                <BaseButton @click="(event: Event) => onEdit(event, item)">
                   <template #right-icon>
                     <EditIcon />
                   </template>
                 </BaseButton>
 
-                <BaseButton>
+                <BaseButton @click="(event: Event) => onRemove(event, item)">
                   <template #right-icon>
                     <RemoveIcon />
                   </template>
@@ -75,8 +75,8 @@ const props = withDefaults(defineProps<TableProps>(), {
   hasActions: false,
 });
 const emits = defineEmits<{
-  "select-all": [value: boolean];
   click: [void: TableItem];
+  remove: [void: TableItem];
 }>();
 
 const tableColumns = computed((): TableColumn[] => {
@@ -93,5 +93,15 @@ const displayedGridTemplateColumns = computed(
 
 const onClick = (item: TableItem): void => {
   emits("click", item);
+};
+
+const onRemove = (event: Event, item: TableItem): void => {
+  event.stopPropagation();
+  emits("remove", item);
+};
+
+const onEdit = (event: Event, item: TableItem): void => {
+  event.stopPropagation();
+  emits("remove", item);
 };
 </script>
