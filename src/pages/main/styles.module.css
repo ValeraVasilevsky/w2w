@@ -1,0 +1,17 @@
+.container {
+  background-color: var(--palette-white);
+  padding: var(--spacing-2xl);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+
+  @media (--media-tablet) {
+    padding: var(--spacing-xl);
+  }
+  @media (--media-mobile) {
+    padding: var(--spacing-l);
+  }
+}

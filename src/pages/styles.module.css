@@ -1,0 +1,26 @@
+.layout {
+  padding-top: 80px !important;
+  height: 100%;
+  position: relative;
+
+  & .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  & .wrapper {
+    height: 100%;
+    z-index: 9;
+  }
+
+  @media (--media-tablet) {
+    padding-top: 64px !important;
+  }
+
+  @media (--media-mobile) {
+    padding-top: 64px !important;
+  }
+}

@@ -1,0 +1,23 @@
+:root {
+  /* colors */
+  --palette-white: #f8f8f8;
+  --palette-black: #2f2f2f;
+  --palette-black-60: #2f2f2fad;
+  --palette-green: #5aff94;
+
+  /* spacing */
+  --spacing-xs: 4px;
+  --spacing-s: 8px;
+  --spacing-m: 12px;
+  --spacing-l: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+
+  /* rounded */
+  --rounded-xs: 4px;
+  --rounded-s: 8px;
+  --rounded-m: 12px;
+  --rounded-l: 16px;
+  --rounded-xl: 20px;
+  --rounded-2xl: 24px;
+}

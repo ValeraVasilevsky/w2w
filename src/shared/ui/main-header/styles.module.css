@@ -1,0 +1,19 @@
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: var(--palette-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .links {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-m);
+
+    & .link {
+      color: var(--palette-black);
+    }
+  }
+}

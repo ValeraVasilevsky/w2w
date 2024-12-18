@@ -22,12 +22,6 @@ export const router = createRouter({
           name: "nurses",
           component: (): Component => import("pages/nurses/index.vue"),
         },
-      ],
-    },
-    {
-      path: "/",
-      component: (): Component => import("pages/default.vue"),
-      children: [
         {
           path: "/:catchAll(.*)",
           name: "404",
