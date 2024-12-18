@@ -6,7 +6,7 @@
         :style="{ gridTemplateColumns: displayedGridTemplateColumns }"
       >
         <div v-for="column in columns" :key="column.key" :class="styles.column">
-          <Typography as="span" variant="text-xs-1">
+          <Typography as="span" variant="text-m-1">
             {{ column.title }}
           </Typography>
         </div>
@@ -56,7 +56,7 @@ const emits = defineEmits<{
 }>();
 
 const displayedGridTemplateColumns = computed(
-  (): string => `repeat(${props.columns.length}, 1fr)`
+  (): string => `repeat(${props.columns.length}, minmax(100px, 1fr))`
 );
 
 const onClick = (item: TableItem): void => {
