@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^11.1.0",
+    "axios": "^1.7.9",
     "modern-normalize": "^3.0.1",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^4.0.2",

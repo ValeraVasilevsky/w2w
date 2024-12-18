@@ -1,11 +1,11 @@
 <template>
   <div :class="styles.container">
-    <DoctorsTable />
+    <!-- <DoctorsTable /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { DoctorsTable } from "widgets/doctors-table";
+// import { DoctorsTable } from "d/doctors-table";
 
 import styles from "./styles.module.css";
 </script>

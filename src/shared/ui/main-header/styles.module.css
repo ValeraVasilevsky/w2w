@@ -16,4 +16,12 @@
       color: var(--palette-black);
     }
   }
+
+  @media (--media-tablet) {
+    height: 64px;
+  }
+
+  @media (--media-mobile) {
+    height: 64px;
+  }
 }
