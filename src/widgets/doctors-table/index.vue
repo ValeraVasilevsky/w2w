@@ -1,6 +1,6 @@
 <template>
   <div :class="styles.container">
-    <DataTable v-if="!isLoading" :columns="columns" :data="data" />
+    <DataTable v-if="!isLoading" has-actions :columns="columns" :data="data" />
   </div>
 </template>
 

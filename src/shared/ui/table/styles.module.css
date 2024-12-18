@@ -44,7 +44,7 @@
       padding: 11px var(--spacing-xl);
       border-bottom: 1px solid var(--palette-black-dark);
       transition: 0.3s background-color, border;
-      align-items: flex-start;
+      align-items: center;
       cursor: pointer;
 
       &:last-child {
@@ -60,6 +60,13 @@
           color: var(--palette-black);
           font-size: 12px;
           font-weight: bold;
+        }
+
+        & .actions {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: var(--spacing-s);
         }
       }
 
