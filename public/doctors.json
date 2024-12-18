@@ -1,64 +1,62 @@
-{
-    "doctors": [
-        {
-            "id": 1,
-            "name": "Иван",
-            "departmentId": 1,
-            "isHead": false
-        },
-        {
-            "id": 2,
-            "name": "Петр",
-            "departmentId": 2,
-            "isHead": true
-        },
-        {
-            "id": 3,
-            "name": "Надежда",
-            "departmentId": 1,
-            "isHead": true
-        },
-        {
-            "id": 4,
-            "name": "Ольга",
-            "departmentId": 2,
-            "isHead": false
-        },
-        {
-            "id": 5,
-            "name": "Михаил",
-            "departmentId": 2,
-            "isHead": false
-        },
-        {
-            "id": 6,
-            "name": "Людмила",
-            "departmentId": 1,
-            "isHead": false
-        },
-        {
-            "id": 7,
-            "name": "Светлана",
-            "departmentId": 1,
-            "isHead": false
-        },
-        {
-            "id": 8,
-            "name": "Андрей",
-            "departmentId": 2,
-            "isHead": false
-        },
-        {
-            "id": 9,
-            "name": "Федор",
-            "departmentId": 1,
-            "isHead": false
-        },
-        {
-            "id": 10,
-            "name": "Илья",
-            "departmentId": 2,
-            "isHead": false
-        }
-    ]
-}
+[
+    {
+        "id": 1,
+        "name": "Иван",
+        "departmentId": 1,
+        "isHead": false
+    },
+    {
+        "id": 2,
+        "name": "Петр",
+        "departmentId": 2,
+        "isHead": true
+    },
+    {
+        "id": 3,
+        "name": "Надежда",
+        "departmentId": 1,
+        "isHead": true
+    },
+    {
+        "id": 4,
+        "name": "Ольга",
+        "departmentId": 2,
+        "isHead": false
+    },
+    {
+        "id": 5,
+        "name": "Михаил",
+        "departmentId": 2,
+        "isHead": false
+    },
+    {
+        "id": 6,
+        "name": "Людмила",
+        "departmentId": 1,
+        "isHead": false
+    },
+    {
+        "id": 7,
+        "name": "Светлана",
+        "departmentId": 1,
+        "isHead": false
+    },
+    {
+        "id": 8,
+        "name": "Андрей",
+        "departmentId": 2,
+        "isHead": false
+    },
+    {
+        "id": 9,
+        "name": "Федор",
+        "departmentId": 1,
+        "isHead": false
+    },
+    {
+        "id": 10,
+        "name": "Илья",
+        "departmentId": 2,
+        "isHead": false
+    }
+]

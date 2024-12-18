@@ -3,7 +3,7 @@ import { Ref } from "vue";
 export interface Doctor {
   id: number;
   name: string;
-  departmentId: string;
+  departmentId: number;
   isHead: boolean;
 }
 
