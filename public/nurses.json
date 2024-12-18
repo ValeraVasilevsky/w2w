@@ -1,0 +1,29 @@
+{
+    "nurses": [
+        {
+            "id": 1,
+            "name": "Мария",
+            "departmentId": 1
+        },
+        {
+            "id": 2,
+            "name": "Евгения",
+            "departmentId": 2
+        },
+        {
+            "id": 3,
+            "name": "Валерия",
+            "departmentId": 1
+        },
+        {
+            "id": 4,
+            "name": "Ксения",
+            "departmentId": 1
+        },
+        {
+            "id": 5,
+            "name": "Виолетта",
+            "departmentId": 2
+        }
+    ]
+}
