@@ -17,12 +17,11 @@ export const router = createRouter({
           name: "main",
           component: (): Component => import("pages/main/index.vue"),
         },
-      ],
-    },
-    {
-      path: "/",
-      component: (): Component => import("pages/default.vue"),
-      children: [
+        {
+          path: "nurses",
+          name: "nurses",
+          component: (): Component => import("pages/nurses/index.vue"),
+        },
         {
           path: "/:catchAll(.*)",
           name: "404",

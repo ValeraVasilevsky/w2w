@@ -6,7 +6,9 @@ import { router } from "./router";
 
 import App from "./app.vue";
 
+import "unfonts.css";
 import "./style.css";
+import "shared/ui/theme/variables.css";
 
 const app = createApp(App);
 const pinia = createPinia();
