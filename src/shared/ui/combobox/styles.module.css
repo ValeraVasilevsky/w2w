@@ -1,0 +1,123 @@
+.combobox {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+
+  &.invalid {
+    margin-bottom: var(--spacing-xl);
+  }
+  max-height: 48px;
+
+  &:has(.error) {
+    margin-bottom: var(--spacing-m);
+  }
+
+  & .input {
+    position: relative;
+    width: 100%;
+    outline: 0;
+    border-radius: var(--rounded-m);
+    border: 1px solid transparent;
+    color: var(--palette-black);
+    background-color: var(--palette-grey);
+    transition: border-color 100ms ease-out, background-color 100ms ease-out;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    cursor: pointer;
+
+    font: var(--font-text-m-1);
+    padding: var(--spacing-2xl) var(--spacing-xl);
+    height: 48px;
+
+    & input {
+      background-color: transparent;
+      outline: none;
+    cursor: pointer;
+
+    }
+
+    &-value {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      outline: 0;
+      border-radius: var(--rounded-m);
+      border: 1px solid transparent;
+      color: var(--palette-black);
+      background-color: var(--palette-grey);
+      transition: border-color 100ms ease-out, background-color 100ms ease-out;
+      cursor: pointer;
+
+      font: var(--font-text-m-1);
+    }
+
+    & .values {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 250px;
+    }
+
+    & .trigger {
+      position: absolute;
+      right: 12px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      transition: all 150ms ease-out;
+
+      top: 12px;
+
+      & svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &[data-state="open"] {
+      & .form-label {
+        transform: translateY(-10px);
+      }
+
+      & .trigger {
+        transform: rotate(180deg);
+      }
+    }
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &.error {
+      border-color: var(--palette-red);
+    }
+  }
+
+  & .error {
+    text-align: left;
+    color: var(--palette-red);
+  }
+
+  & .options {
+    background-color: var(--palette-white);
+    border-radius: var(--rounded-m);
+    max-height: 225px;
+    overflow: auto;
+    margin-top: 5px;
+
+    &::-webkit-scrollbar {
+      padding: var(--spacing-s);
+    }
+  }
+}

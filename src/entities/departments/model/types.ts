@@ -11,6 +11,7 @@ export interface DepartmentsState {
   getDepartments: () => Promise<void>;
   getNameById: (departmentId: number) => string;
   getKeyById: (departmentId: number) => DepartmentKey | void;
+  getTitleByKey: (departmentKey: DepartmentKey) => string | void;
 }
 
 export type DepartmentKey = "surgery" | "cardiology";

@@ -1,6 +1,6 @@
 import { object, string } from "yup";
 
-const DEPARTMENTS: string[] = ["surgery", "cardiology"];
+export const DEPARTMENTS: string[] = ["surgery", "cardiology"];
 
 export const doctorSchema = object({
   name: string()
