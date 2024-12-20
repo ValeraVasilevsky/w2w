@@ -1,10 +1,12 @@
 [
     {
         "id": 1,
-        "title": "Хирургия"
+        "title": "Хирургия",
+        "key": "surgery"
     },
     {
         "id": 2,
-        "title": "Кардиология"
+        "title": "Кардиология",
+        "key": "cardiology"
     }
 ]

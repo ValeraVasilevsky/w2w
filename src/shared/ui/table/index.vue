@@ -77,6 +77,7 @@ const props = withDefaults(defineProps<TableProps>(), {
 const emits = defineEmits<{
   click: [void: TableItem];
   remove: [void: TableItem];
+  edit: [void: TableItem];
 }>();
 
 const tableColumns = computed((): TableColumn[] => {
@@ -102,6 +103,6 @@ const onRemove = (event: Event, item: TableItem): void => {
 
 const onEdit = (event: Event, item: TableItem): void => {
   event.stopPropagation();
-  emits("remove", item);
+  emits("edit", item);
 };
 </script>

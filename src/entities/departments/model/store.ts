@@ -1,7 +1,11 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { fetchDepartments } from "../api";
-import { type Department, type DepartmentsState } from "./types";
+import {
+  type Department,
+  type DepartmentsState,
+  type DepartmentKey,
+} from "./types";
 
 export const useDepartmentStore = defineStore(
   "departments",
@@ -25,10 +29,18 @@ export const useDepartmentStore = defineStore(
       return candidate.title;
     };
 
+    const getKeyById = (departmentId: number): DepartmentKey | void => {
+      const candidate = departments.value.find(({ id }) => id === departmentId);
+      if (!candidate) return;
+
+      return candidate.key;
+    };
+
     return {
       departments,
       getDepartments,
       getNameById,
+      getKeyById,
     };
   }
 );

@@ -8,15 +8,24 @@
       @remove="onRemove"
       @edit="onEdit"
     />
+
+    <Modal
+      v-model:open="isOpen"
+      title="Редактирование врача"
+      @close="resetSelectedDoctor"
+    >
+      <DoctorEditForm />
+    </Modal>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
 import { storeToRefs } from "pinia";
+import { DoctorEditForm } from "features/doctors";
 import { useDepartmentStore } from "entities/departments";
 import { useDoctorsStore } from "entities/doctors";
-import { DataTable, TableItem, type TableColumn } from "shared/ui";
+import { DataTable, TableItem, Modal, type TableColumn } from "shared/ui";
 
 import styles from "./styles.module.css";
 
@@ -24,7 +33,8 @@ const { doctors } = storeToRefs(useDoctorsStore());
 const { departments } = storeToRefs(useDepartmentStore());
 
 const { getDepartments, getNameById } = useDepartmentStore();
-const { getDoctors, setSelectedDoctor, removeDoctor } = useDoctorsStore();
+const { getDoctors, setSelectedDoctor, removeDoctor, resetSelectedDoctor } =
+  useDoctorsStore();
 
 const columns = ref<TableColumn[]>([
   {
@@ -46,6 +56,8 @@ const columns = ref<TableColumn[]>([
 ]);
 
 const isLoading = ref<boolean>(true);
+const isOpen = ref<boolean>(false);
+
 const data = computed((): TableItem[] => {
   if (!departments.value.length || !doctors.value.length) return [];
 
@@ -71,6 +83,9 @@ const fetchData = async (): Promise<void> => {
   }
 };
 
+const openModal = (): void => {
+  isOpen.value = true;
+};
 const getPosition = (isHead: boolean): string =>
   isHead ? "Заведующий" : "Специалист";
 
@@ -79,6 +94,7 @@ const onRemove = (item: TableItem): void => {
 };
 const onEdit = (item: TableItem): void => {
   setSelectedDoctor(item.id as number);
+  openModal();
 };
 
 onBeforeMount(async () => {
