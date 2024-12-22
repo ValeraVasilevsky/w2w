@@ -9,7 +9,7 @@
       <slot />
     </Typography>
 
-    <div :class="styles.icon">
+    <div v-if="slots['right-icon']" :class="styles.icon">
       <slot name="right-icon" />
     </div>
   </button>
@@ -45,6 +45,7 @@ const buttonClasses = computed((): string[] => {
   const classes: string[] = [styles.button];
 
   if (!slots["default"]) classes.push(styles.iconOnly);
+  if (props.disabled) classes.push(styles.disabled);
 
   return classes;
 });

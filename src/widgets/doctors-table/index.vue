@@ -14,7 +14,7 @@
       title="Редактирование врача"
       @close="resetSelectedDoctor"
     >
-      <DoctorEditForm />
+      <DoctorEditForm @submit="closeModal" />
     </Modal>
   </div>
 </template>
@@ -85,6 +85,9 @@ const fetchData = async (): Promise<void> => {
 
 const openModal = (): void => {
   isOpen.value = true;
+};
+const closeModal = (): void => {
+  isOpen.value = false;
 };
 const getPosition = (isHead: boolean): string =>
   isHead ? "Заведующий" : "Специалист";

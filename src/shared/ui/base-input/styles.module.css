@@ -12,7 +12,6 @@
   transition: 0.3s border-color;
 
   &:has(.error) {
-    margin-bottom: var(--spacing-m);
     border-color: var(--palette-red) !important;
   }
 

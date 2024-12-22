@@ -10,8 +10,13 @@
   cursor: pointer;
   padding: var(--spacing-s) var(--spacing-xl);
   border-radius: var(--rounded-s);
-  transition: 0.3s box-shadow;
+  transition: 0.3s box-shadow, background-color, color;
 
+  &.disabled {
+    background-color: var(--palette-grey);
+    cursor: not-allowed;
+    color: var(--palette-white);
+  }
   &.iconOnly {
     border-radius: 50%;
     padding: var(--spacing-s);

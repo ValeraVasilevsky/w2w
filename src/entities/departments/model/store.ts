@@ -36,6 +36,10 @@ export const useDepartmentStore = defineStore(
       return candidate.key;
     };
 
+    const getIdByKey = (departmentKey: DepartmentKey): number | undefined => {
+      return departments.value.find(({ key }) => key === departmentKey)?.id;
+    };
+
     const getTitleByKey = (departmentKey: DepartmentKey): string | void => {
       return departments.value.find(({ key }) => key === departmentKey)?.title;
     };
@@ -46,6 +50,7 @@ export const useDepartmentStore = defineStore(
       getNameById,
       getKeyById,
       getTitleByKey,
+      getIdByKey,
     };
   }
 );

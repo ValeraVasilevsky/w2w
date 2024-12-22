@@ -1,7 +1,29 @@
 .form {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   gap: var(--spacing-m);
+
+  & .fields {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-m);
+
+    & .input,
+    & .combobox {
+      width: 200px;
+    }
+  }
+
+  & .actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-m);
+  }
 }
