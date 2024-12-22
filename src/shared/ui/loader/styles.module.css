@@ -1,0 +1,26 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--palette-black-20);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .loader {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--palette-green);
+    border-bottom-color: var(--palette-white);
+    border-radius: 100%;
+    animation: spinner 1s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}

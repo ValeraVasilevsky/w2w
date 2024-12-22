@@ -1,7 +1,8 @@
 <template>
   <div :class="styles.container">
+    <Loader v-if="isLoading" />
     <DataTable
-      v-if="!isLoading"
+      v-else
       has-actions
       :columns="columns"
       :data="data"
@@ -25,7 +26,13 @@ import { storeToRefs } from "pinia";
 import { DoctorEditForm } from "features/doctors";
 import { useDepartmentStore } from "entities/departments";
 import { useDoctorsStore } from "entities/doctors";
-import { DataTable, TableItem, Modal, type TableColumn } from "shared/ui";
+import {
+  DataTable,
+  TableItem,
+  Modal,
+  type TableColumn,
+  Loader,
+} from "shared/ui";
 
 import styles from "./styles.module.css";
 
@@ -101,6 +108,8 @@ const onEdit = (item: TableItem): void => {
 };
 
 onBeforeMount(async () => {
-  await fetchData();
+  setTimeout(async () => {
+    await fetchData();
+  }, 1000);
 });
 </script>
