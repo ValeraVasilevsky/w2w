@@ -15,7 +15,7 @@
       title="Редактирование врача"
       @close="resetSelectedDoctor"
     >
-      <DoctorEditForm @submit="closeModal" />
+      <DoctorEditForm :type="formType" @submit="closeModal" />
     </Modal>
   </div>
 </template>
@@ -64,6 +64,7 @@ const columns = ref<TableColumn[]>([
 
 const isLoading = ref<boolean>(true);
 const isOpen = ref<boolean>(false);
+const formType = ref<"edit" | "create">("edit");
 
 const data = computed((): TableItem[] => {
   if (!departments.value.length || !doctors.value.length) return [];
@@ -104,6 +105,7 @@ const onRemove = (item: TableItem): void => {
 };
 const onEdit = (item: TableItem): void => {
   setSelectedDoctor(item.id as number);
+  formType.value = "edit";
   openModal();
 };
 

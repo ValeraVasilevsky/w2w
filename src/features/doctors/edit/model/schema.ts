@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+import { boolean, object, string } from "yup";
 
 export const DEPARTMENTS: string[] = ["surgery", "cardiology"];
 
@@ -13,4 +13,5 @@ export const doctorSchema = object({
     .min(1, "Выберите данные")
     .oneOf(DEPARTMENTS, "Неверное значение")
     .required("Выберите данные"),
+  isHead: boolean().default(false),
 });

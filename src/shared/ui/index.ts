@@ -6,3 +6,4 @@ export * from "./modal";
 export * from "./base-input";
 export * from "./combobox";
 export * from "./loader";
+export * from "./checkbox";

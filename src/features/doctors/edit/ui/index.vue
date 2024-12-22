@@ -20,6 +20,8 @@
           :text-value="getTitleByKey(department as DepartmentKey) ?? department"
         />
       </Combobox>
+
+      <Checkbox v-model:checked="values.isHead">Заведующий</Checkbox>
     </div>
 
     <div :class="styles.actions">
@@ -35,7 +37,13 @@ import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import { DepartmentKey, useDepartmentStore } from "entities/departments";
 import { Doctor, useDoctorsStore } from "entities/doctors";
-import { BaseInput, Combobox, ComboboxItem, BaseButton } from "shared/ui";
+import {
+  BaseInput,
+  Combobox,
+  ComboboxItem,
+  BaseButton,
+  Checkbox,
+} from "shared/ui";
 import { useForm } from "shared/utils/useForm";
 import { doctorSchema, DEPARTMENTS } from "../model";
 
@@ -46,7 +54,12 @@ type FormEmits = {
   submit: [value: void];
 };
 
+interface FormProps {
+  type: FormType;
+}
+
 const emits = defineEmits<FormEmits>();
+const props = defineProps<FormProps>();
 
 const { getKeyById, getTitleByKey, getIdByKey } = useDepartmentStore();
 const { editDoctor, createDoctor } = useDoctorsStore();
@@ -57,34 +70,37 @@ const preparedSelectedDoctor = computed(() => {
     return {
       name: "",
       department: "",
+      isHead: false,
     };
 
   return {
     name: selectedDoctor.value?.name ?? "",
     department: getKeyById(selectedDoctor.value?.departmentId) ?? "",
+    isHead: selectedDoctor.value.isHead,
   };
 });
-
-const formType = computed(
-  (): FormType => (selectedDoctor.value ? "edit" : "create")
-);
 
 const { values, errors, submit } = useForm(doctorSchema, {
   defaultValues: {
     name: preparedSelectedDoctor.value.name,
     department: preparedSelectedDoctor.value.department,
+    isHead: preparedSelectedDoctor.value.isHead,
   },
 });
 
 const isDoctorChanged = computed((): boolean => {
   return (
     JSON.stringify(preparedSelectedDoctor.value) ===
-    JSON.stringify({ name: values.name, department: values.department })
+    JSON.stringify({
+      name: values.name,
+      department: values.department,
+      isHead: values.isHead,
+    })
   );
 });
 
 const onSave = submit((): void => {
-  if (formType.value === "edit") {
+  if (props.type === "edit") {
     if (!selectedDoctor.value) return;
 
     const editedDoctor: Doctor = {
@@ -93,6 +109,7 @@ const onSave = submit((): void => {
       departmentId:
         getIdByKey(values.department as DepartmentKey) ??
         selectedDoctor.value?.departmentId,
+      isHead: values.isHead,
     };
     editDoctor(editedDoctor);
   } else {
