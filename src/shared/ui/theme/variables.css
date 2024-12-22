@@ -3,9 +3,11 @@
   --palette-white: #f8f8f8;
   --palette-grey: #ebebeb;
   --palette-black: #2f2f2f;
+  --palette-black-20: #2f2f2f2e;
   --palette-black-60: #2f2f2fad;
   --palette-black-dark: #1a1a1a33;
   --palette-green: #5aff94;
+  --palette-red: #ff5a5a;
 
   /* spacing */
   --spacing-xs: 4px;

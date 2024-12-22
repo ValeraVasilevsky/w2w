@@ -1,0 +1,96 @@
+.overlay {
+  --modal-overlay-bg: rgb(0 0 0 / 60%);
+  --modal-overlay-filter: blur(8px);
+  --modal-content-bg: var(--palette-white);
+  --modal-content-padding-s: 18px;
+  --modal-content-padding-m: 20px;
+  --modal-content-padding-l: 24px;
+  --modal-content-radius: 16px;
+  --modal-close-color: var(--palette-black);
+  --modal-close-radius: var(--rounded-m);
+
+  position: fixed;
+  z-index: 5;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  background: var(--modal-overlay-bg);
+  backdrop-filter: var(--modal-overlay-filter);
+
+  & .content {
+    position: relative;
+    border-radius: var(--modal-content-radius);
+    background-color: var(--modal-content-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 60%;
+    padding: var(--modal-content-padding-s);
+  }
+
+  & .header {
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    position: relative;
+
+    & > span {
+      margin-right: auto;
+    }
+  }
+
+  & .close {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    color: var(--modal-close-color);
+    cursor: pointer;
+    position: absolute;
+    right: var(--spacing-l);
+
+    &:focus-visible {
+      outline: 0;
+    }
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    backdrop-filter: none;
+  }
+
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+
+  to {
+    opacity: 0;
+    backdrop-filter: none;
+  }
+}
+
+.overlay[data-state="open"],
+.content[data-state="open"] {
+  animation: show 200ms ease-out;
+}
+
+.overlay[data-state="closed"],
+.content[data-state="closed"] {
+  animation: hide 200ms ease-in;
+}

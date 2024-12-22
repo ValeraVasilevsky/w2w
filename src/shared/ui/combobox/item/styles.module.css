@@ -1,0 +1,42 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px var(--spacing-2xl);
+  cursor: pointer;
+  gap: 12px;
+  background-color: var(--palette-grey);
+
+  & span {
+    color: var(--palette-black);
+  }
+
+  & .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 16px;
+    height: 16px;
+  }
+
+  &:first-child {
+    border-radius: var(--rounded-m) var(--rounded-m) 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 var(--rounded-m) var(--rounded-m);
+  }
+
+  & .indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+
+    & > svg {
+      color: var(--palette-black);
+    }
+  }
+}

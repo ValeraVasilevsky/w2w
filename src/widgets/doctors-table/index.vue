@@ -1,15 +1,39 @@
 <template>
   <div :class="styles.container">
-    <DataTable v-if="!isLoading" :columns="columns" :data="data" />
+    <Loader v-if="isLoading" />
+    <DataTable
+      v-else
+      has-actions
+      :columns="columns"
+      :data="data"
+      @remove="onRemove"
+      @edit="onEdit"
+      @add="onAdd"
+    />
+
+    <Modal
+      v-model:open="isOpen"
+      title="Редактирование врача"
+      @close="resetSelectedDoctor"
+    >
+      <DoctorEditForm :type="formType" @submit="closeModal" />
+    </Modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import { storeToRefs } from "pinia";
+import { DoctorEditForm } from "features/doctors";
 import { useDepartmentStore } from "entities/departments";
 import { useDoctorsStore } from "entities/doctors";
-import { DataTable, TableItem, type TableColumn } from "shared/ui";
+import {
+  DataTable,
+  TableItem,
+  Modal,
+  type TableColumn,
+  Loader,
+} from "shared/ui";
 
 import styles from "./styles.module.css";
 
@@ -17,7 +41,8 @@ const { doctors } = storeToRefs(useDoctorsStore());
 const { departments } = storeToRefs(useDepartmentStore());
 
 const { getDepartments, getNameById } = useDepartmentStore();
-const { getDoctors } = useDoctorsStore();
+const { getDoctors, setSelectedDoctor, removeDoctor, resetSelectedDoctor } =
+  useDoctorsStore();
 
 const columns = ref<TableColumn[]>([
   {
@@ -39,7 +64,19 @@ const columns = ref<TableColumn[]>([
 ]);
 
 const isLoading = ref<boolean>(true);
-const data = ref<TableItem[]>([]);
+const isOpen = ref<boolean>(false);
+const formType = ref<"edit" | "create">("edit");
+
+const data = computed((): TableItem[] => {
+  if (!departments.value.length || !doctors.value.length) return [];
+
+  return doctors.value.map((doctor) => ({
+    ...doctor,
+    title: doctor.name,
+    department: getNameById(doctor.departmentId),
+    position: getPosition(doctor.isHead),
+  }));
+});
 
 const fetchData = async (): Promise<void> => {
   isLoading.value = true;
@@ -47,8 +84,6 @@ const fetchData = async (): Promise<void> => {
   try {
     await getDepartments();
     await getDoctors();
-
-    prepareData();
   } catch (error) {
     console.error(error);
     return;
@@ -57,24 +92,31 @@ const fetchData = async (): Promise<void> => {
   }
 };
 
+const openModal = (): void => {
+  isOpen.value = true;
+};
+const closeModal = (): void => {
+  isOpen.value = false;
+};
 const getPosition = (isHead: boolean): string =>
   isHead ? "Заведующий" : "Специалист";
 
-const prepareData = (): void => {
-  if (!doctors.value.length || !departments.value.length) {
-    data.value = [];
-    return;
-  }
-
-  data.value = doctors.value.map((doctor) => ({
-    ...doctor,
-    title: doctor.name,
-    department: getNameById(doctor.departmentId),
-    position: getPosition(doctor.isHead),
-  }));
+const onRemove = (item: TableItem): void => {
+  removeDoctor(item.id as number);
+};
+const onEdit = (item: TableItem): void => {
+  setSelectedDoctor(item.id as number);
+  formType.value = "edit";
+  openModal();
+};
+const onAdd = (): void => {
+  formType.value = "create";
+  openModal();
 };
 
 onBeforeMount(async () => {
-  await fetchData();
+  setTimeout(async () => {
+    await fetchData();
+  }, 1000);
 });
 </script>
