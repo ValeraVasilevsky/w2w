@@ -8,6 +8,7 @@
       :data="data"
       @remove="onRemove"
       @edit="onEdit"
+      @add="onAdd"
     />
 
     <Modal
@@ -106,6 +107,10 @@ const onRemove = (item: TableItem): void => {
 const onEdit = (item: TableItem): void => {
   setSelectedDoctor(item.id as number);
   formType.value = "edit";
+  openModal();
+};
+const onAdd = (): void => {
+  formType.value = "create";
   openModal();
 };
 

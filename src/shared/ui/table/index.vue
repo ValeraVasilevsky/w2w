@@ -13,6 +13,10 @@
           <Typography as="span" variant="text-m-1">
             {{ column.title }}
           </Typography>
+
+          <BaseButton v-if="column.key === 'actions'" @click="onAdd"
+            >Добавить</BaseButton
+          >
         </div>
       </div>
 
@@ -75,9 +79,10 @@ const props = withDefaults(defineProps<TableProps>(), {
   hasActions: false,
 });
 const emits = defineEmits<{
-  click: [void: TableItem];
-  remove: [void: TableItem];
-  edit: [void: TableItem];
+  click: [value: TableItem];
+  remove: [value: TableItem];
+  edit: [value: TableItem];
+  add: [value: void];
 }>();
 
 const tableColumns = computed((): TableColumn[] => {
@@ -104,5 +109,9 @@ const onRemove = (event: Event, item: TableItem): void => {
 const onEdit = (event: Event, item: TableItem): void => {
   event.stopPropagation();
   emits("edit", item);
+};
+
+const onAdd = (): void => {
+  emits("add");
 };
 </script>

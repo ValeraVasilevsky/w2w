@@ -12,6 +12,8 @@
         v-model="values.department"
         :display-value="(v: unknown) => getTitleByKey(v as DepartmentKey) ?? ''"
         :class="styles.combobox"
+        :error="!!errors?.department"
+        :error-message="errors?.department?.message"
       >
         <ComboboxItem
           v-for="department of DEPARTMENTS"
@@ -25,7 +27,7 @@
     </div>
 
     <div :class="styles.actions">
-      <BaseButton :disabled="isDoctorChanged" type="submit" @click="onSave">
+      <BaseButton :disabled="isDoctorChanged || isLoading" type="submit">
         Сохранить
       </BaseButton>
     </div>
@@ -33,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { DepartmentKey, useDepartmentStore } from "entities/departments";
 import { Doctor, useDoctorsStore } from "entities/doctors";
@@ -64,6 +66,8 @@ const props = defineProps<FormProps>();
 const { getKeyById, getTitleByKey, getIdByKey } = useDepartmentStore();
 const { editDoctor, createDoctor } = useDoctorsStore();
 const { selectedDoctor } = storeToRefs(useDoctorsStore());
+
+const isLoading = ref<boolean>(false);
 
 const preparedSelectedDoctor = computed(() => {
   if (!selectedDoctor.value)
@@ -100,6 +104,8 @@ const isDoctorChanged = computed((): boolean => {
 });
 
 const onSave = submit((): void => {
+  isLoading.value = true;
+
   if (props.type === "edit") {
     if (!selectedDoctor.value) return;
 
@@ -116,12 +122,13 @@ const onSave = submit((): void => {
     const newDoctor: Omit<Doctor, "id"> = {
       name: values.name,
       departmentId: getIdByKey(values.department as DepartmentKey) ?? 1,
-      isHead: false,
+      isHead: values.isHead,
     };
 
     createDoctor(newDoctor);
   }
 
+  isLoading.value = false;
   emits("submit");
 });
 </script>

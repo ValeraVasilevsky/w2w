@@ -8,10 +8,6 @@
   }
   max-height: 48px;
 
-  &:has(.error) {
-    margin-bottom: var(--spacing-m);
-  }
-
   & .input {
     position: relative;
     width: 100%;
@@ -35,8 +31,7 @@
     & input {
       background-color: transparent;
       outline: none;
-    cursor: pointer;
-
+      cursor: pointer;
     }
 
     &-value {
