@@ -38,11 +38,10 @@ import {
 import styles from "./styles.module.css";
 
 const { doctors } = storeToRefs(useDoctorsStore());
-const { departments } = storeToRefs(useDepartmentStore());
 
-const { getDepartments, getNameById } = useDepartmentStore();
 const { getDoctors, setSelectedDoctor, removeDoctor, resetSelectedDoctor } =
   useDoctorsStore();
+const { getDepartments, getNameById } = useDepartmentStore();
 
 const columns = ref<TableColumn[]>([
   {
@@ -68,22 +67,22 @@ const isOpen = ref<boolean>(false);
 const formType = ref<"edit" | "create">("edit");
 
 const data = computed((): TableItem[] => {
-  if (!departments.value.length || !doctors.value.length) return [];
-
-  return doctors.value.map((doctor) => ({
-    ...doctor,
-    title: doctor.name,
-    department: getNameById(doctor.departmentId),
-    position: getPosition(doctor.isHead),
-  }));
+  return (
+    doctors?.value.map((doctor) => ({
+      ...doctor,
+      title: doctor.name,
+      department: getNameById(doctor.departmentId),
+      position: getPosition(doctor.isHead),
+    })) || []
+  );
 });
 
 const fetchData = async (): Promise<void> => {
   isLoading.value = true;
 
   try {
-    await getDepartments();
     await getDoctors();
+    await getDepartments();
   } catch (error) {
     console.error(error);
     return;
@@ -114,9 +113,7 @@ const onAdd = (): void => {
   openModal();
 };
 
-onBeforeMount(async () => {
-  setTimeout(async () => {
-    await fetchData();
-  }, 1000);
-});
+setTimeout(() => {
+  fetchData();
+}, 1000);
 </script>

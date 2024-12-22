@@ -4,7 +4,7 @@ import { fetchNurses } from "../api";
 import { type Nurse, type NursesState } from "./types";
 
 export const useNursesStore = defineStore(
-  "doctors",
+  "nurses",
   (): NursesState => {
     const nurses = ref<Nurse[]>([]);
     const selectedNurse = ref<Nurse | null>(null);

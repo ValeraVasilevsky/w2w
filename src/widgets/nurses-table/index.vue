@@ -38,11 +38,10 @@ import {
 import styles from "./styles.module.css";
 
 const { nurses } = storeToRefs(useNursesStore());
-const { departments } = storeToRefs(useDepartmentStore());
 
-const { getDepartments, getNameById } = useDepartmentStore();
 const { getNurses, setSelectedNurse, removeNurse, resetSelectedNurse } =
   useNursesStore();
+const { getDepartments, getNameById } = useDepartmentStore();
 
 const columns = ref<TableColumn[]>([
   {
@@ -64,17 +63,19 @@ const isOpen = ref<boolean>(false);
 const formType = ref<"edit" | "create">("edit");
 
 const data = computed((): TableItem[] => {
-  if (!departments.value.length || !nurses.value.length) return [];
-
-  return nurses.value.map((nurse) => ({
-    ...nurse,
-    title: nurse.name,
-    department: getNameById(nurse.departmentId),
-  }));
+  return (
+    nurses?.value.map((nurse) => ({
+      ...nurse,
+      title: nurse.name,
+      department: getNameById(nurse.departmentId),
+    })) || []
+  );
 });
 
 const fetchData = async (): Promise<void> => {
   isLoading.value = true;
+
+  console.log(getNurses)
 
   try {
     await getDepartments();
@@ -107,9 +108,7 @@ const onAdd = (): void => {
   openModal();
 };
 
-onBeforeMount(async () => {
-  setTimeout(async () => {
-    await fetchData();
-  }, 1000);
-});
+setTimeout(() => {
+  fetchData();
+}, 1000);
 </script>
